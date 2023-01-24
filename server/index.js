@@ -1,7 +1,43 @@
-import express from 'express';
+import express from "express";
+import dotenv from "dotenv";
+import mysql from "mysql2/promise";
 
-const app = express();
+// Routes
+import apiRoutes from "./api-routes.js";
 
-app.use(express.static('dist'));
+dotenv.config();
 
-app.listen(8000);
+const PORT = process.env["PORT"] || 8080;
+const JWT_SECRET = process.env["JWT_SECRET"] || "JWT_SECRET";
+
+const MYSQL_ADDRESS = process.env["MYSQL_ADDRESS"];
+const MYSQL_USER = process.env["MYSQL_USER"];
+const MYSQL_DATABASE = process.env["MYSQL_DATABASE"];
+
+if (!MYSQL_ADDRESS)
+  throw new Error("missing `MYSQL_ADDRESS` environment variable`");
+if (!MYSQL_USER) throw new Error("missing `MYSQL_USER` environment variable`");
+if (!MYSQL_DATABASE)
+  throw new Error("missing `MYSQL_DATABASE` environment variable`");
+
+async function main() {
+  const connection = await mysql.createConnection({
+    host: MYSQL_ADDRESS,
+    user: MYSQL_USER,
+    database: MYSQL_DATABASE,
+  });
+
+  const app = express();
+  app.locals.connection = connection;
+  app.locals.JWT_SECRET = JWT_SECRET;
+
+  app.use(express.json());
+  app.use(express.static("dist"));
+  app.use("/api", apiRoutes);
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+main().catch(console.error);
