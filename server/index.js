@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mysql from "mysql2/promise";
+import morgan from "morgan";
 
 // Routes
 import apiRoutes from "./api-routes.js";
@@ -32,6 +33,7 @@ async function main() {
   app.locals.JWT_SECRET = JWT_SECRET;
 
   app.use(express.json());
+  app.use(morgan("combined"));
   app.use(express.static("dist"));
   app.use("/api", apiRoutes);
 
