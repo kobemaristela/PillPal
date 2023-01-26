@@ -14,7 +14,7 @@ class Api {
 
   isLoggedIn() {
     if (this.token === null) return false;
-    if ((Date.now() / 1000) - this.token <= 0) return false;
+    if (Date.now() / 1000 - this.token <= 0) return false;
 
     return true;
   }
