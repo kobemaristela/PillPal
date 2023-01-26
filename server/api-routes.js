@@ -2,26 +2,12 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const SALT_ROUNDS = 12;
+// Model
+import { User } from "./model.js";
+
 const MIN_PASSWORD_LENGTH = 8;
 
-const TOKEN_EXPIRE_TIME = "1d";
-
 const router = express.Router();
-
-function jwtSignPromise(payload, secretOrPrivateKey, options) {
-  options = options || {};
-
-  return new Promise((resolve, reject) => {
-    jwt.sign(payload, secretOrPrivateKey, options, function (err, token) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(token);
-      }
-    });
-  });
-}
 
 router.post("/login", async (req, res) => {
   const connection = req.app.locals.connection;
@@ -52,27 +38,36 @@ router.post("/login", async (req, res) => {
     return;
   }
 
+  let user = null;
   try {
-    let [rows, fields] = await connection.query(
-      "SELECT id, username, hash FROM users WHERE username = ?;",
-      [username]
-    );
-
-    if (rows.length === 0) throw new Error("missing user");
-    if (rows.length !== 1)
-      throw new Error(`multiple users for username "${username}"`);
-    let user = rows[0];
-
-    let isCorrectPassword = await bcrypt.compare(password, user.hash);
-    if (!isCorrectPassword) throw new Error("invalid password");
-
-    const jwtData = {
-      id: user.id,
-      username: user.username,
-    };
-    let token = await jwtSignPromise(jwtData, JWT_SECRET, {
-      expiresIn: TOKEN_EXPIRE_TIME,
+    user = await User.getByUsername(connection, username);
+  } catch (err) {
+    res.status(401).json({
+      type: "error",
+      data: {
+        message: "failed to find user",
+      },
     });
+
+    return;
+  }
+
+  try {
+    let isCorrectPassword = await user.isValidPassword(password);
+    if (!isCorrectPassword) throw new Error("invalid password");
+  } catch (err) {
+    res.status(401).json({
+      type: "error",
+      data: {
+        message: "incorrect password",
+      },
+    });
+
+    return;
+  }
+
+  try {
+    let token = await user.createToken(JWT_SECRET);
 
     res.status(200).json({
       type: "ok",
@@ -129,41 +124,9 @@ router.post("/login/register", async (req, res) => {
     return;
   }
 
-  let hash = null;
   try {
-    hash = await bcrypt.hash(password, SALT_ROUNDS);
-  } catch (err) {
-    res.status(500).json({
-      type: "error",
-      data: {
-        message: "internal server error",
-      },
-    });
-    return;
-  }
-
-  try {
-    await connection.beginTransaction();
-    await connection.query(
-      "INSERT INTO users (username, hash) VALUES (?, ?);",
-      [username, hash]
-    );
-    let [rows, fields] = await connection.query(
-      "SELECT LAST_INSERT_ID() as id;",
-      [username]
-    );
-
-    let id = rows[0]["id"];
-
-    await connection.query("COMMIT;");
-
-    const jwtData = {
-      id: id,
-      username: username,
-    };
-    let token = await jwtSignPromise(jwtData, JWT_SECRET, {
-      expiresIn: TOKEN_EXPIRE_TIME,
-    });
+    let user = await User.createNew(connection, username, password);
+    let token = await user.createToken(JWT_SECRET);
 
     res.status(200).json({
       type: "ok",
@@ -173,8 +136,6 @@ router.post("/login/register", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-
-    await connection.rollback();
 
     res.status(401).json({
       type: "error",
