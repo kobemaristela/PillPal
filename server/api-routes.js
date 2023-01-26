@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 const SALT_ROUNDS = 12;
 const MIN_PASSWORD_LENGTH = 8;
 
-const TOKEN_EXPIRE_TIME = "7d";
+const TOKEN_EXPIRE_TIME = "1d";
 
 const router = express.Router();
 
