@@ -22,9 +22,6 @@ if (!MYSQL_ADDRESS)
 if (!MYSQL_USER) 
   throw new Error("missing `MYSQL_USER` environment variable`");
 
-if (!MYSQL_PASSWORD) 
-  throw new Error("missing `MYSQL_PASSWORD` environment variable`");
-
 if (!MYSQL_DATABASE)
   throw new Error("missing `MYSQL_DATABASE` environment variable`");
 

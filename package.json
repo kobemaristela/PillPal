@@ -7,7 +7,6 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "vite build",
-        "dev": "vite",
         "watch": "vite build --watch",
         "serve": "node server/index.js",
         "fmt": "prettier --write server/*.js src/*.js src/*.vue *.js"
