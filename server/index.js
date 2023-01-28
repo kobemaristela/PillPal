@@ -19,8 +19,7 @@ const MYSQL_DATABASE = process.env["MYSQL_DATABASE"];
 if (!MYSQL_ADDRESS)
   throw new Error("missing `MYSQL_ADDRESS` environment variable`");
 
-if (!MYSQL_USER) 
-  throw new Error("missing `MYSQL_USER` environment variable`");
+if (!MYSQL_USER) throw new Error("missing `MYSQL_USER` environment variable`");
 
 if (!MYSQL_DATABASE)
   throw new Error("missing `MYSQL_DATABASE` environment variable`");

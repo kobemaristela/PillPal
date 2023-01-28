@@ -1,0 +1,32 @@
+image: node:latest
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  only:
+    - main
+    - merge_requests
+  cache:
+    key: build-cache
+    paths:
+      - node_modules/
+    policy: push
+  script:
+    - npm install
+    - npm run build
+
+lint:
+  stage: test
+  only:
+    - main
+    - merge_requests
+  cache:
+    key: build-cache
+    paths:
+      - node_modules/
+    policy: pull
+  script:
+    - npm run lint
