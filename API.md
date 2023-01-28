@@ -26,6 +26,30 @@ POST /api/login/register
 An `ApiResponse` is returned. 
 If it is successful, the payload is a `LoginResponse`.
 
+# Medication
+
+## Medication
+POST /api/medication
+```json
+{
+    "name": "medication name",
+    "description": "medication description",
+    "group": "medication group name",
+}
+```
+An `ApiResponse` is returned. 
+If it is successful, the payload is currently unspecified.
+
+## Medication Group
+POST /api/medication-group
+```json
+{
+    "name": "medication group name"
+}
+```
+An `ApiResponse` is returned. 
+If it is successful, the payload is currently unspecified.
+
 # Types
 
 ## ApiResponse
