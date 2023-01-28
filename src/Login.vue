@@ -70,7 +70,6 @@ a {
 }
 </style>
 
-
 <template>
   <div class="login-container">
     <div class="login-form-container">
