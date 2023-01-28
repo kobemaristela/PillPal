@@ -13,11 +13,18 @@ const JWT_SECRET = process.env["JWT_SECRET"] || "JWT_SECRET";
 
 const MYSQL_ADDRESS = process.env["MYSQL_ADDRESS"];
 const MYSQL_USER = process.env["MYSQL_USER"];
+const MYSQL_PASSWORD = process.env["MYSQL_PASSWORD"];
 const MYSQL_DATABASE = process.env["MYSQL_DATABASE"];
 
 if (!MYSQL_ADDRESS)
   throw new Error("missing `MYSQL_ADDRESS` environment variable`");
-if (!MYSQL_USER) throw new Error("missing `MYSQL_USER` environment variable`");
+
+if (!MYSQL_USER) 
+  throw new Error("missing `MYSQL_USER` environment variable`");
+
+if (!MYSQL_PASSWORD) 
+  throw new Error("missing `MYSQL_PASSWORD` environment variable`");
+
 if (!MYSQL_DATABASE)
   throw new Error("missing `MYSQL_DATABASE` environment variable`");
 
@@ -25,6 +32,7 @@ async function main() {
   const connection = await mysql.createConnection({
     host: MYSQL_ADDRESS,
     user: MYSQL_USER,
+    password: MYSQL_PASSWORD,
     database: MYSQL_DATABASE,
   });
 
