@@ -7,10 +7,10 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "vite build",
-        "dev": "vite",
         "watch": "vite build --watch",
         "serve": "node server/index.js",
-        "fmt": "prettier --write server/*.js src/*.js **/*.vue **/*.js"
+        "fmt": "prettier --write server/*.js src/*.js **/*.vue **/*.js *.yml",
+        "lint": "eslint ."
     },
     "repository": {
         "type": "git",
@@ -30,6 +30,7 @@
     },
     "devDependencies": {
         "@vitejs/plugin-vue": "^4.0.0",
+        "eslint": "^8.32.0",
         "prettier": "^2.8.3",
         "sass": "^1.57.1",
         "vite": "^4.0.4"

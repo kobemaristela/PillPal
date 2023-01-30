@@ -41,7 +41,7 @@ class User {
   }
 
   static async getByUsername(connection, username) {
-    let [rows, fields] = await connection.query(
+    let [rows] = await connection.query(
       "SELECT id, username, hash FROM users WHERE username = ?;",
       [username]
     );
@@ -63,10 +63,9 @@ class User {
         "INSERT INTO users (username, hash) VALUES (?, ?);",
         [username, hash]
       );
-      let [rows, fields] = await connection.query(
-        "SELECT LAST_INSERT_ID() as id;",
-        [username]
-      );
+      let [rows] = await connection.query("SELECT LAST_INSERT_ID() as id;", [
+        username,
+      ]);
       let id = rows[0]["id"];
 
       await connection.commit();
