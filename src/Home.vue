@@ -2,6 +2,7 @@
 .register-container {
   display: flex;
   flex-direction: row-reverse;
+  margin-right: 10em;
 }
 
 .register-form-container {
