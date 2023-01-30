@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="dashboard-app">
     <Sidebar />
     <h1>Dashboard</h1>
   </div>
@@ -31,7 +31,8 @@ button {
   outline: none;
   background: none;
 }
-.app {
+.dashboard-app {
+  background-color: white;
   display: flex;
   main {
     flex: 1 1 0;

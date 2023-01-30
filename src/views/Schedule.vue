@@ -1,5 +1,5 @@
 <template>
-  <div class="app">
+  <div class="dashboard-app">
     <Sidebar />
     <h1>Schedule</h1>
   </div>
@@ -9,7 +9,7 @@
 import Sidebar from "../components/Sidebar.vue";
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 :root {
   --primary: #4ade80;
   --secondary: #8353e2;
@@ -31,7 +31,8 @@ button {
   outline: none;
   background: none;
 }
-.app {
+.dashboard-app {
+  background-color: white;
   display: flex;
   main {
     flex: 1 1 0;
