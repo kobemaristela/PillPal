@@ -31,7 +31,8 @@ button {
   outline: none;
   background: none;
 }
-.dashboard-app {
+.dashboard-app,
+Sidebar {
   background-color: white;
   display: flex;
   main {
