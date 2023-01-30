@@ -56,11 +56,33 @@ const ToggleMenu = () => {
 </script>
 
 <style lang="scss" scoped>
+button {
+  cursor: pointer;
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+aside div,
+button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 aside {
+  --dark-alt: #334155;
+  --primary: #4ade80;
+  --secondary: #8353e2;
+  --grey: #64748b;
+  --dark: #000000;
+  --sidebar-width: 300px;
+
   display: flex;
   flex-direction: column;
-  background-color: var(--light);
-  color: var(--light);
+  background-color: var(--background-color);
+  color: #cbc3e3;
   width: calc(2rem + 32px);
   overflow: hidden;
   min-height: 100vh;
@@ -99,6 +121,7 @@ aside {
       }
       .router-link-exact-active {
         border-right: 5px solid var(--primary);
+        color: black;
       }
     }
   }
@@ -142,6 +165,7 @@ aside {
       }
       &.router-link-exact-active {
         border-right: 5px solid var(--secondary);
+        color: black;
       }
     }
   }

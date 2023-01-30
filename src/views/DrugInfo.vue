@@ -19,11 +19,7 @@ import Sidebar from "../components/Sidebar.vue";
   --light: #cbc3e3;
   --sidebar-width: 300px;
 }
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 button {
   cursor: pointer;
   appearance: none;

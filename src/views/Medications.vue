@@ -24,13 +24,7 @@ import Sidebar from "../components/Sidebar.vue";
   padding: 0;
   box-sizing: border-box;
 }
-button {
-  cursor: pointer;
-  appearance: none;
-  border: none;
-  outline: none;
-  background: none;
-}
+
 .dashboard-app {
   background-color: white;
   display: flex;
