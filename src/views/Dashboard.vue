@@ -18,16 +18,11 @@ import Sidebar from "../components/Sidebar.vue";
   --dark-alt: #334155;
   --light: #cbc3e3;
   --sidebar-width: 300px;
-  --background-color: white;
 }
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Fira sans", sans-serif;
-}
-body {
-  background: var(white);
 }
 button {
   cursor: pointer;
@@ -37,7 +32,6 @@ button {
   background: none;
 }
 .app {
-  background: var(white);
   display: flex;
   main {
     flex: 1 1 0;
