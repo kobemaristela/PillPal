@@ -14,7 +14,7 @@
 
 .login-form-container form {
   background-color: var(--alternate-background-color);
-  border-radius: 5em;
+  border-radius: 2em;
   display: flex;
   flex-direction: column;
   height: 30vh;
