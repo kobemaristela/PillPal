@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHashHistory } from "vue-router";
 
 // Routes
 import Home from "../Home.vue";
@@ -9,8 +9,6 @@ import Medications from "../views/Medications.vue";
 import MedPrice from "../views/MedPrice.vue";
 import Schedule from "../views/Schedule.vue";
 
-
-
 // TODO: Move to new file
 const About = { template: "<div>About</div>" };
 
@@ -18,11 +16,11 @@ const routes = [
   { path: "/", component: Home },
   { path: "/about", component: About },
   { path: "/login", component: Login },
-  { path: "/dashboard", component: Dashboard},
-  { path: "/drug_info", component: DrugInfo},
-  { path: "/medications", component: Medications},
-  { path: "/med_price", component: MedPrice},
-  { path: "/schedule", component: Schedule},
+  { path: "/dashboard", component: Dashboard },
+  { path: "/drug_info", component: DrugInfo },
+  { path: "/medications", component: Medications },
+  { path: "/med_price", component: MedPrice },
+  { path: "/schedule", component: Schedule },
   // { path: "/druginfo", component: () => import("../views/DrugInfo.vue")},
   // { path: "/medications", component: () => import("../views/Medications.vue")},
   // { path: "/medprice", component: () => import("../views/MedPrice.vue")},
@@ -30,8 +28,8 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes
-  })
-  
-  export default router
+  history: createWebHashHistory(),
+  routes,
+});
+
+export default router;
