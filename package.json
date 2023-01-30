@@ -9,7 +9,7 @@
         "build": "vite build",
         "watch": "vite build --watch",
         "serve": "node server/index.js",
-        "fmt": "prettier --write server/*.js src/*.js **/*.vue **/*.js *.yml",
+        "fmt": "prettier --write server/*.js src/*.js **/*.vue **/*.js *.yml *.html",
         "lint": "eslint ."
     },
     "repository": {
