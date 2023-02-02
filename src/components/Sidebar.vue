@@ -14,19 +14,19 @@
         <span class="material-icons-outlined">dashboard</span>
         <span class="text">Dashboard</span>
       </router-link>
-      <router-link class="button" to="/medications">
+      <router-link class="button" to="/dashboard/medications">
         <span class="material-icons-outlined">medication</span>
         <span class="text">Medications</span>
       </router-link>
-      <router-link class="button" to="/schedule">
+      <router-link class="button" to="/dashboard/schedule">
         <span class="material-icons-outlined">calendar_today</span>
         <span class="text">Schedule</span>
       </router-link>
-      <router-link class="button" to="/drug_info">
+      <router-link class="button" to="/dashboard/drug-info">
         <span class="material-icons-outlined">info</span>
         <span class="text">Drug Information</span>
       </router-link>
-      <router-link class="button" to="/med_price">
+      <router-link class="button" to="/dashboard/medicine-price">
         <span class="material-icons-outlined">price_change</span>
         <span class="text">Medication Price</span>
       </router-link>

@@ -3,11 +3,14 @@ import { createRouter, createWebHashHistory } from "vue-router";
 // Routes
 import Home from "../Home.vue";
 import Login from "../Login.vue";
+
+// Dashboard Routes
 import Dashboard from "../views/Dashboard.vue";
-import DrugInfo from "../views/DrugInfo.vue";
-import Medications from "../views/Medications.vue";
-import MedPrice from "../views/MedPrice.vue";
-import Schedule from "../views/Schedule.vue";
+import DashboardHome from "../views/dashboard/Home.vue";
+import DashboardMedications from "../views/dashboard/Medications.vue";
+import DashboardSchedule from "../views/dashboard/Schedule.vue";
+import DashboardDrugInfo from "../views/dashboard/DrugInfo.vue";
+import DashboardMedicinePrice from "../views/dashboard/MedicinePrice.vue";
 
 // TODO: Move to new file
 const About = { template: "<div>About</div>" };
@@ -16,15 +19,23 @@ const routes = [
   { path: "/", component: Home },
   { path: "/about", component: About },
   { path: "/login", component: Login },
-  { path: "/dashboard", component: Dashboard },
-  { path: "/drug_info", component: DrugInfo },
-  { path: "/medications", component: Medications },
-  { path: "/med_price", component: MedPrice },
-  { path: "/schedule", component: Schedule },
-  // { path: "/druginfo", component: () => import("../views/DrugInfo.vue")},
-  // { path: "/medications", component: () => import("../views/Medications.vue")},
-  // { path: "/medprice", component: () => import("../views/MedPrice.vue")},
-  // { path: "/schedule", component: () => import("../views/Schedule.vue")},
+  {
+    path: "/dashboard",
+    component: Dashboard,
+    children: [
+      {
+        path: "",
+        component: DashboardHome,
+      },
+      {
+        path: "drug-info",
+        component: DashboardDrugInfo,
+      },
+      { path: "schedule", component: DashboardSchedule },
+      { path: "medications", component: DashboardMedications },
+      { path: "medicine-price", component: DashboardMedicinePrice },
+    ],
+  },
 ];
 
 const router = createRouter({
