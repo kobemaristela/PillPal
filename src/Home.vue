@@ -82,6 +82,7 @@ a {
             id="username"
             name="username"
             autocomplete="off"
+            required
             v-model="usernameValue"
           />
         </div>
@@ -92,6 +93,10 @@ a {
             id="password"
             name="password"
             autocomplete="off"
+            minlength="8"
+            pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/"
+            title="Password must contain at least one lowercase, uppercase, numeric, and special character"
+            required
             v-model="passwordValue"
           />
         </div>
