@@ -9,7 +9,7 @@
 import Sidebar from "../components/Sidebar.vue";
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .dashboard {
   background-color: white;
   display: flex;
