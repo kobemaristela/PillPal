@@ -89,48 +89,6 @@ aside {
   padding: 1rem;
   transition: 0.2s ease-in-out;
 
-  .flex {
-    flex: 1 1 0;
-  }
-  .logo {
-    margin-bottom: 1rem;
-    img {
-      widows: 2rem;
-    }
-  }
-  .menu-toggle-wrap {
-    display: flex;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-    position: relative;
-    top: 0;
-    transition: 0.2s ease-out;
-    .menu-toggle {
-      transition: 0.2s ease-out;
-      .material-icons-outlined {
-        font-size: 2rem;
-        color: var(black);
-        transition: 0.2s ease-out;
-      }
-      &:hover,
-      .router-link-exact-active {
-        .material-icons-outlined {
-          color: var(--secondary);
-          transform: translateX(0.5rem);
-        }
-      }
-      .router-link-exact-active {
-        border-right: 5px solid var(--primary);
-        color: black;
-      }
-    }
-  }
-
-  h3,
-  .button .text {
-    opacity: 0;
-    transition: 0.3s ease-out;
-  }
   .menu {
     margin: 0 -1rem;
 
@@ -201,5 +159,55 @@ aside {
     position: fixed;
     z-index: 99;
   }
+}
+
+aside .flex {
+  flex: 1 1 0;
+}
+
+aside .logo {
+  margin-bottom: 1rem;
+}
+
+aside .logo img {
+  widows: 2rem;
+}
+
+aside .menu-toggle-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+  position: relative;
+  top: 0;
+  transition: 0.2s ease-out;
+}
+
+aside .menu-toggle-wrap .menu-toggle {
+  transition: 0.2s ease-out;
+}
+
+aside .menu-toggle-wrap .menu-toggle:hover,
+aside .menu-toggle-wrap .router-link-exact-active {
+  .material-icons-outlined {
+    color: var(--secondary);
+    transform: translateX(0.5rem);
+  }
+}
+
+aside .menu-toggle-wrap .menu-toggle .router-link-exact-active {
+  border-right: 5px solid var(--primary);
+  color: black;
+}
+
+aside .menu-toggle-wrap .menu-toggle .material-icons-outlined {
+  font-size: 2rem;
+  color: var(black);
+  transition: 0.2s ease-out;
+}
+
+aside h3,
+aside .button .text {
+  opacity: 0;
+  transition: 0.3s ease-out;
 }
 </style>
