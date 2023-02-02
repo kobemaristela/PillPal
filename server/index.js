@@ -25,15 +25,16 @@ if (!MYSQL_DATABASE)
   throw new Error("missing `MYSQL_DATABASE` environment variable`");
 
 async function main() {
-  const connection = await mysql.createConnection({
+  const pool = await mysql.createPool({
     host: MYSQL_ADDRESS,
     user: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: MYSQL_DATABASE,
+    connectionLimit: 10,
   });
 
   const app = express();
-  app.locals.connection = connection;
+  app.locals.pool = pool;
   app.locals.JWT_SECRET = JWT_SECRET;
 
   app.use(express.json());
