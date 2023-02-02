@@ -55,7 +55,7 @@ const ToggleMenu = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 button {
   cursor: pointer;
   appearance: none;
@@ -89,72 +89,6 @@ aside {
   padding: 1rem;
   transition: 0.2s ease-in-out;
 
-  .menu {
-    margin: 0 -1rem;
-
-    .button {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-
-      padding: 0.5rem 1rem;
-      transition: 0.2s ease-out;
-
-      .material-icons-outlined {
-        font-size: 2rem;
-        color: black;
-        transition: 0.2s ease-out;
-      }
-
-      .text {
-        display: none;
-        //color: black;
-        transition: 0.2s;
-      }
-
-      &:hover,
-      &.router-link-exact-active {
-        background: white;
-
-        .material-icons-outlined,
-        .text {
-          color: var(--secondary);
-        }
-      }
-      &.router-link-exact-active {
-        border-right: 5px solid var(--secondary);
-        color: black;
-      }
-    }
-  }
-  &.is_expanded {
-    width: 220px;
-    .menu-toggle-wrap {
-      top: -3rem;
-      .menu-toggle {
-        transform: rotate(-180deg);
-      }
-    }
-    h3,
-    .button .text {
-      opacity: 1;
-      display: inline;
-      color: var(--dark-alt);
-      transition: 0.2s ease-out;
-    }
-
-    .button {
-      .material-icons-outlined {
-        margin-right: 1rem;
-      }
-    }
-
-    .logo {
-      margin-bottom: 1rem;
-      transform: scale(3.6);
-      translate: 14.5rem 2rem;
-    }
-  }
   @media (max-width: 768px) {
     position: fixed;
     z-index: 99;
@@ -186,12 +120,10 @@ aside .menu-toggle-wrap .menu-toggle {
   transition: 0.2s ease-out;
 }
 
-aside .menu-toggle-wrap .menu-toggle:hover,
-aside .menu-toggle-wrap .router-link-exact-active {
-  .material-icons-outlined {
-    color: var(--secondary);
-    transform: translateX(0.5rem);
-  }
+aside .menu-toggle-wrap .menu-toggle:hover .material-icons-outlined,
+aside .menu-toggle-wrap .router-link-exact-active .material-icons-outlined {
+  color: var(--secondary);
+  transform: translateX(0.5rem);
 }
 
 aside .menu-toggle-wrap .menu-toggle .router-link-exact-active {
@@ -209,5 +141,84 @@ aside h3,
 aside .button .text {
   opacity: 0;
   transition: 0.3s ease-out;
+}
+
+aside.is_expanded {
+  width: 220px;
+}
+
+aside.is_expanded .menu-toggle-wrap {
+  top: -3rem;
+}
+
+aside.is_expanded .menu-toggle-wrap .menu-toggle {
+  transform: rotate(-180deg);
+}
+
+aside.is_expanded h3,
+aside.is_expanded .button .text {
+  opacity: 1;
+  display: inline;
+  color: var(--dark-alt);
+  transition: 0.2s ease-out;
+}
+
+aside.is_expanded .button .material-icons-outlined {
+  margin-right: 1rem;
+}
+
+aside.is_expanded .logo {
+  margin-bottom: 1rem;
+  transform: scale(3.6);
+  translate: 14.5rem 2rem;
+}
+
+.menu {
+  --dark-alt: #334155;
+  --primary: #4ade80;
+  --secondary: #8353e2;
+  --grey: #64748b;
+  --dark: #000000;
+  --sidebar-width: 300px;
+
+  margin: 0 -1rem;
+}
+
+.menu .button {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+
+  padding: 0.5rem 1rem;
+  transition: 0.2s ease-out;
+}
+
+.menu .button:hover,
+.menu .button.router-link-exact-active {
+  background: white;
+}
+
+.menu .button:hover .material-icons-outlined,
+.menu .button:hover .text,
+.menu .button.router-link-exact-active .material-icons-outlined,
+.menu .button.router-link-exact-active .text {
+  color: var(--secondary);
+}
+
+.menu .button.router-link-exact-active {
+  border-right: 5px solid var(--secondary);
+  color: black;
+}
+
+.menu .button .material-icons-outlined {
+  font-size: 2rem;
+  color: black;
+  transition: 0.2s ease-out;
+}
+
+.menu .button .text {
+  display: none;
+  /* color: black; */
+  transition: 0.2s;
 }
 </style>
