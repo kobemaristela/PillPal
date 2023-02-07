@@ -1,37 +1,37 @@
 {
-  "name": "team-21-medication-tracker",
-  "private": true,
-  "version": "0.0.0",
-  "description": "",
-  "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vite build",
-    "watch": "vite build --watch",
-    "serve": "node server/index.js",
-    "fmt": "prettier --write server/*.js src/*.js src/*.vue *.js *.json *.yml",
-    "lint": "eslint ."
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/team-2110/team-21-medication-tracker"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.0",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "morgan": "^1.10.0",
-    "mysql2": "^3.0.1",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
-  },
-  "devDependencies": {
-    "@vitejs/plugin-vue": "^4.0.0",
-    "eslint": "^8.32.0",
-    "prettier": "^2.8.3",
-    "vite": "^4.0.4"
-  }
+    "name": "team-21-medication-tracker",
+    "private": true,
+    "version": "0.0.0",
+    "description": "",
+    "type": "module",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "vite build",
+        "watch": "vite build --watch",
+        "serve": "node server/index.js",
+        "fmt": "prettier --write server/*.js src/*.js **/*.vue **/*.js *.yml *.html",
+        "lint": "eslint ."
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/team-2110/team-21-medication-tracker"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^5.1.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "morgan": "^1.10.0",
+        "mysql2": "^3.0.1",
+        "vue": "^3.2.45",
+        "vue-router": "^4.1.6"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^4.0.0",
+        "eslint": "^8.32.0",
+        "prettier": "^2.8.3",
+        "vite": "^4.0.4"
+    }
 }
