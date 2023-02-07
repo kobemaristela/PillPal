@@ -136,5 +136,8 @@ export default {
       }
     },
   },
+  mounted() {
+    Api.isLoggedIn() && this.$router.push("/dashboard");
+  },
 };
 </script>
