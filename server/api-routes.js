@@ -13,9 +13,9 @@ const router = express.Router();
 function validateCredentials(username, password) {
 
   // Username Validations
-  if (typeof username !== "string") return "Username must be a string";
-  if (username.length < 3) return "Username is too short";
-  if (username.length > 255) return "Username is too long";
+  if (typeof username !== "string") throw new Error("Username must be a string");
+  if (username.length < 3) throw new Error("Username is too short");
+  if (username.length > 255) throw new Error("Username is too long");
 
   // Password Validations
   const lowercase = /^(?=.*[a-z])[a-zA-Z\d!@#$%^&*]+$/;
@@ -23,13 +23,13 @@ function validateCredentials(username, password) {
   const numeric = /^(?=.*\d)[a-zA-Z\d!@#$%^&*]+$/;
   const special = /^(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/;
 
-  if (typeof password !== "string") return "Password must be a string";
-  if (password.length < MIN_PASSWORD_LENGTH) return "Password is too short";
-  if (password.length > 255) return "Password is too long";
-  if (!lowercase.test(password)) return "Password must contain at least one lowercase letter";
-  if (!uppercase.test(password)) return "Password must contain at least one uppercase letter";
-  if (!numeric.test(password)) return "Password must contain at least one number";
-  if (!special.test(password)) return "Password must contain at least one special character";
+  if (typeof password !== "string") throw new Error("Password must be a string");
+  if (password.length < MIN_PASSWORD_LENGTH) throw new Error("Password is too short");
+  if (password.length > 255) throw new Error("Password is too long");
+  if (!lowercase.test(password)) throw new Error("Password must contain at least one lowercase letter");
+  if (!uppercase.test(password)) throw new Error("Password must contain at least one uppercase letter");
+  if (!numeric.test(password)) throw new Error("Password must contain at least one number");
+  if (!special.test(password)) throw new Error("Password must contain at least one special character");
 };
 
 
@@ -118,13 +118,14 @@ router.post("/login/register", async (req, res) => {
   let username = req.body["username"];
   let password = req.body["password"];
 
-  const error = validateCredentials(username,password);
+  try {
+    validateCredentials(username,password);
+  } catch (e) {
 
-  if (error) {
     res.status(401).json({
       type: "error",
       data: {
-        message: error,
+        message: e.message,
       },
     });
 
