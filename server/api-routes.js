@@ -4,9 +4,34 @@ import jwt from "jsonwebtoken";
 // Model
 import { User } from "./model.js";
 
+// Global Variables
 const MIN_PASSWORD_LENGTH = 8;
-
 const router = express.Router();
+
+
+// Helper Functions
+function validateCredentials(username, password) {
+
+  // Username Validations
+  if (typeof username !== "string") return "Username must be a string";
+  if (username.length < 3) return "Username is too short";
+  if (username.length > 255) return "Username is too long";
+
+  // Password Validations
+  const lowercase = /^(?=.*[a-z])[a-zA-Z\d!@#$%^&*]+$/;
+  const uppercase = /^(?=.*[A-Z])[a-zA-Z\d!@#$%^&*]+$/;
+  const numeric = /^(?=.*\d)[a-zA-Z\d!@#$%^&*]+$/;
+  const special = /^(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/;
+
+  if (typeof password !== "string") return "Password must be a string";
+  if (password.length < MIN_PASSWORD_LENGTH) return "Password is too short";
+  if (password.length > 255) return "Password is too long";
+  if (!lowercase.test(password)) return "Password must contain at least one lowercase letter";
+  if (!uppercase.test(password)) return "Password must contain at least one uppercase letter";
+  if (!numeric.test(password)) return "Password must contain at least one number";
+  if (!special.test(password)) return "Password must contain at least one special character";
+};
+
 
 router.post("/login", async (req, res) => {
   const pool = req.app.locals.pool;
@@ -93,117 +118,13 @@ router.post("/login/register", async (req, res) => {
   let username = req.body["username"];
   let password = req.body["password"];
 
-  // Username Validations
-  if (typeof username !== "string") {
-    res.status(400).json({
+  const error = validateCredentials(username,password);
+
+  if (error) {
+    res.status(401).json({
       type: "error",
       data: {
-        message: "Username must be a string",
-      },
-    });
-
-    return;
-  }
-
-  if (username.length < 3) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Username is too short",
-      },
-    });
-
-    return;
-  }
-
-  if (username.length > 255) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Username is too long",
-      },
-    });
-
-    return;
-  }
-
-  // Password Validations
-  const lowercase = /^(?=.*[a-z])[a-zA-Z\d!@#$%^&*]+$/;
-  const uppercase = /^(?=.*[A-Z])[a-zA-Z\d!@#$%^&*]+$/;
-  const numeric = /^(?=.*\d)[a-zA-Z\d!@#$%^&*]+$/;
-  const special = /^(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/;
-
-  if (typeof password !== "string") {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password must be a string",
-      },
-    });
-
-    return;
-  }
-
-  if (password.length < MIN_PASSWORD_LENGTH) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password is too short",
-      },
-    });
-
-    return;
-  }
-
-  if (password.length > 255) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password is too long",
-      },
-    });
-
-    return;
-  }
-
-  if (!lowercase.test(password)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password must contain at least one lowercase letter",
-      },
-    });
-
-    return;
-  }
-
-  if (!uppercase.test(password)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password must contain at least one uppercase letter",
-      },
-    });
-
-    return;
-  }
-
-  if (!numeric.test(password)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password must contain at least one number",
-      },
-    });
-
-    return;
-  }
-
-  if (!special.test(password)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "Password must contain at least one special character",
+        message: error,
       },
     });
 
