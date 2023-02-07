@@ -128,10 +128,10 @@ router.post("/login/register", async (req, res) => {
   }
 
   // Password Validations
-  const lowercase = /^(?=.*[a-z])[a-zA-Z\d!@#\$%\^&\*]+$/;
-  const uppercase = /^(?=.*[A-Z])[a-zA-Z\d!@#\$%\^&\*]+$/;
-  const numeric = /^(?=.*\d)[a-zA-Z\d!@#\$%\^&\*]+$/;
-  const special = /^(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/;
+  const lowercase = /^(?=.*[a-z])[a-zA-Z\d!@#$%^&*]+$/;
+  const uppercase = /^(?=.*[A-Z])[a-zA-Z\d!@#$%^&*]+$/;
+  const numeric = /^(?=.*\d)[a-zA-Z\d!@#$%^&*]+$/;
+  const special = /^(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/;
 
   if (typeof password !== "string") {
     res.status(400).json({
@@ -155,7 +155,6 @@ router.post("/login/register", async (req, res) => {
     return;
   }
 
-
   if (password.length > 255) {
     res.status(400).json({
       type: "error",
@@ -167,7 +166,7 @@ router.post("/login/register", async (req, res) => {
     return;
   }
 
-  if (!(lowercase.test(password))) {
+  if (!lowercase.test(password)) {
     res.status(400).json({
       type: "error",
       data: {
@@ -178,7 +177,7 @@ router.post("/login/register", async (req, res) => {
     return;
   }
 
-  if (!(uppercase.test(password))) {
+  if (!uppercase.test(password)) {
     res.status(400).json({
       type: "error",
       data: {
@@ -189,7 +188,7 @@ router.post("/login/register", async (req, res) => {
     return;
   }
 
-  if (!(numeric.test(password))) {
+  if (!numeric.test(password)) {
     res.status(400).json({
       type: "error",
       data: {
@@ -200,7 +199,7 @@ router.post("/login/register", async (req, res) => {
     return;
   }
 
-  if (!(special.test(password))) {
+  if (!special.test(password)) {
     res.status(400).json({
       type: "error",
       data: {
