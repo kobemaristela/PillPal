@@ -8,12 +8,11 @@ import { User } from "./model.js";
 const MIN_PASSWORD_LENGTH = 8;
 const router = express.Router();
 
-
 // Helper Functions
 function validateCredentials(username, password) {
-
   // Username Validations
-  if (typeof username !== "string") throw new Error("Username must be a string");
+  if (typeof username !== "string")
+    throw new Error("Username must be a string");
   if (username.length < 3) throw new Error("Username is too short");
   if (username.length > 255) throw new Error("Username is too long");
 
@@ -23,15 +22,20 @@ function validateCredentials(username, password) {
   const numeric = /^(?=.*\d)[a-zA-Z\d!@#$%^&*]+$/;
   const special = /^(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/;
 
-  if (typeof password !== "string") throw new Error("Password must be a string");
-  if (password.length < MIN_PASSWORD_LENGTH) throw new Error("Password is too short");
+  if (typeof password !== "string")
+    throw new Error("Password must be a string");
+  if (password.length < MIN_PASSWORD_LENGTH)
+    throw new Error("Password is too short");
   if (password.length > 255) throw new Error("Password is too long");
-  if (!lowercase.test(password)) throw new Error("Password must contain at least one lowercase letter");
-  if (!uppercase.test(password)) throw new Error("Password must contain at least one uppercase letter");
-  if (!numeric.test(password)) throw new Error("Password must contain at least one number");
-  if (!special.test(password)) throw new Error("Password must contain at least one special character");
-};
-
+  if (!lowercase.test(password))
+    throw new Error("Password must contain at least one lowercase letter");
+  if (!uppercase.test(password))
+    throw new Error("Password must contain at least one uppercase letter");
+  if (!numeric.test(password))
+    throw new Error("Password must contain at least one number");
+  if (!special.test(password))
+    throw new Error("Password must contain at least one special character");
+}
 
 router.post("/login", async (req, res) => {
   const pool = req.app.locals.pool;
@@ -119,9 +123,8 @@ router.post("/login/register", async (req, res) => {
   let password = req.body["password"];
 
   try {
-    validateCredentials(username,password);
+    validateCredentials(username, password);
   } catch (e) {
-
     res.status(401).json({
       type: "error",
       data: {
