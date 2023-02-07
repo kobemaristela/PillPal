@@ -93,30 +93,117 @@ router.post("/login/register", async (req, res) => {
   let username = req.body["username"];
   let password = req.body["password"];
 
-  if (
-    typeof username !== "string" &&
-    username.length < 3 &&
-    username.length > 255
-  ) {
+  // Username Validations
+  if (typeof username !== "string") {
     res.status(400).json({
       type: "error",
       data: {
-        message: "`username` field is invalid",
+        message: "Username must be a string",
       },
     });
 
     return;
   }
 
-  if (
-    typeof password !== "string" &&
-    password.length > MIN_PASSWORD_LENGTH &&
-    password.length > 255
-  ) {
+  if (username.length < 3) {
     res.status(400).json({
       type: "error",
       data: {
-        message: "`password` field is invalid",
+        message: "Username is too short",
+      },
+    });
+
+    return;
+  }
+
+  if (username.length > 255) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Username is too long",
+      },
+    });
+
+    return;
+  }
+
+  // Password Validations
+  const lowercase = /^(?=.*[a-z])[a-zA-Z\d!@#$%^&*]+$/;
+  const uppercase = /^(?=.*[A-Z])[a-zA-Z\d!@#$%^&*]+$/;
+  const numeric = /^(?=.*\d)[a-zA-Z\d!@#$%^&*]+$/;
+  const special = /^(?=.*[!@#$%^&*])[a-zA-Z\d!@#$%^&*]+$/;
+
+  if (typeof password !== "string") {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password must be a string",
+      },
+    });
+
+    return;
+  }
+
+  if (password.length < MIN_PASSWORD_LENGTH) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password is too short",
+      },
+    });
+
+    return;
+  }
+
+  if (password.length > 255) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password is too long",
+      },
+    });
+
+    return;
+  }
+
+  if (!lowercase.test(password)) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password must contain at least one lowercase letter",
+      },
+    });
+
+    return;
+  }
+
+  if (!uppercase.test(password)) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password must contain at least one uppercase letter",
+      },
+    });
+
+    return;
+  }
+
+  if (!numeric.test(password)) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password must contain at least one number",
+      },
+    });
+
+    return;
+  }
+
+  if (!special.test(password)) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "Password must contain at least one special character",
       },
     });
 
