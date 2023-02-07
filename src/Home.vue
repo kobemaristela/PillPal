@@ -2,6 +2,7 @@
 .register-container {
   display: flex;
   flex-direction: row-reverse;
+  margin-right: 10em;
 }
 
 .register-form-container {
@@ -66,45 +67,51 @@ input {
 a {
   font-size: 1.3em;
 }
+
+.container {
+  padding: 0.5em;
+}
 </style>
 
 <template>
-  <h1>Medicine Tracker</h1>
-  <div class="register-container">
-    <div class="register-padding"></div>
-    <div class="register-form-container">
-      <form @submit.prevent="">
-        <h2>Create an Account</h2>
-        <div class="input-container">
-          <label for="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            autocomplete="off"
-            required
-            v-model="usernameValue"
-          />
-        </div>
-        <div class="input-container">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            autocomplete="off"
-            minlength="8"
-            pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/"
-            title="Password must contain at least one lowercase, uppercase, numeric, and special character"
-            required
-            v-model="passwordValue"
-          />
-        </div>
-        <div class="register-button-row">
-          <button @click="attemptRegister">Sign Up</button>
-          <router-link to="/login">Login</router-link>
-        </div>
-      </form>
+  <div class="container">
+    <h1>Medicine Tracker</h1>
+    <div class="register-container">
+      <div class="register-padding"></div>
+      <div class="register-form-container">
+        <form @submit.prevent="">
+          <h2>Create an Account</h2>
+          <div class="input-container">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              autocomplete="off"
+              required
+              v-model="usernameValue"
+            />
+          </div>
+          <div class="input-container">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="off"
+              minlength="8"
+              pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#\$%\^&\*])[a-zA-Z\d!@#\$%\^&\*]+$/"
+              title="Password must contain at least one lowercase, uppercase, numeric, and special character"
+              required
+              v-model="passwordValue"
+            />
+          </div>
+          <div class="register-button-row">
+            <button @click="attemptRegister">Sign Up</button>
+            <router-link to="/login">Login</router-link>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>
