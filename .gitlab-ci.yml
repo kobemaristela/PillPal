@@ -29,4 +29,5 @@ lint:
       - node_modules/
     policy: pull
   script:
+    - npm run check-fmt
     - npm run lint

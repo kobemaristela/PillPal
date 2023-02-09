@@ -45,6 +45,12 @@ GET /api/medication
 An `ApiResponse` is retuned.
 If it is successful, the payload is an array of `Medication`.
 
+## Delete Medication
+DELETE /api/medication/:medicationId
+
+An `ApiResponse` is retuned.
+If it is successful, the payload is currently unspecified.
+
 ## Create Medication Schedule
 POST /api/medication/schedule
 ```json
