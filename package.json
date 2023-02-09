@@ -19,6 +19,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@fullcalendar/daygrid": "^6.1.4",
+        "@fullcalendar/interaction": "^6.1.4",
+        "@fullcalendar/list": "^6.1.4",
+        "@fullcalendar/timegrid": "^6.1.4",
+        "@fullcalendar/vue3": "^6.1.4",
         "bcrypt": "^5.1.0",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
