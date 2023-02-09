@@ -1,59 +1,31 @@
 <template>
-  <aside :class="`${is_expanded ? 'is_expanded' : ''}`">
-    <div class="logo">
-      <img src="../assets/logo_small.svg" alt="PillPal" />
-    </div>
-    <div class="menu-toggle-wrap">
-      <button class="menu-toggle" @click="ToggleMenu">
-        <span class="material-icons-outlined">keyboard_double_arrow_right</span>
-      </button>
-    </div>
-
-    <div class="menu">
-      <router-link class="button" to="/dashboard">
-        <span class="material-icons-outlined">dashboard</span>
-        <span class="text">Dashboard</span>
+      <router-link class="button" to="/dashboard" @click="show = !show">
+        <span class="material-icons-outlined">person</span>
+        <span class="text">Profile</span>
       </router-link>
-      <router-link class="button" to="/dashboard/medications">
-        <span class="material-icons-outlined">medication</span>
-        <span class="text">Medications</span>
+      <router-link class="button" to="/dashboard" v-if="show">
+        <span class="material-icons-outlined">logout</span>
+        <span class="text" @click="logout">Logout</span>
       </router-link>
-      <router-link class="button" to="/dashboard/schedule">
-        <span class="material-icons-outlined">calendar_today</span>
-        <span class="text">Schedule</span>
-      </router-link>
-      <router-link class="button" to="/dashboard/drug-info">
-        <span class="material-icons-outlined">info</span>
-        <span class="text">Drug Information</span>
-      </router-link>
-      <router-link class="button" to="/dashboard/medicine-price">
-        <span class="material-icons-outlined">price_change</span>
-        <span class="text">Medication Price</span>
-      </router-link>
-    </div>
-
-    <div class="flex"></div>
-
-    <div class="menu">
-      <Logout />
-    </div>
-  </aside>
-</template>
-
-<script setup>
-import { ref } from "vue";
-import Logout from "./Logout.vue";
-
-const is_expanded = ref(localStorage.getItem("is_expanded") === "true");
-
-const ToggleMenu = () => {
-  is_expanded.value = !is_expanded.value;
-
-  localStorage.setItem("is_expanded", is_expanded.value);
-};
-</script>
-
-<style scoped>
+  </template>
+  
+  <script>
+  export default {
+    data() {
+      return {
+        show: false,
+      };
+    },
+    methods: {
+      logout() {
+        // Perform logout logic here
+        this.show = false;
+      }
+    }
+  };
+  </script>
+  
+  <style scoped>
 button {
   cursor: pointer;
   appearance: none;
@@ -61,6 +33,7 @@ button {
   outline: none;
   background: none;
 }
+
 
 aside div,
 button {
