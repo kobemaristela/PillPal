@@ -162,16 +162,19 @@ class Api {
       throw new Error(json.data.message);
     }
   }
-  
+
   async deleteMedicationSchedule(medicationId, scheduleId) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
-    let response = await fetch(`/api/medication/${medicationId}/schedule/${scheduleId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${this.token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    let response = await fetch(
+      `/api/medication/${medicationId}/schedule/${scheduleId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     let json = await response.json();
     if (response.ok) {
