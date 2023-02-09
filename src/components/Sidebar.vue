@@ -35,16 +35,14 @@
     <div class="flex"></div>
 
     <div class="menu">
-      <router-link class="button" to="/dashboard">
-        <span class="material-icons-outlined">person</span>
-        <span class="text">Profile</span>
-      </router-link>
+      <Logout />
     </div>
   </aside>
 </template>
 
 <script setup>
 import { ref } from "vue";
+import Logout from "./Logout.vue";
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true");
 
