@@ -107,6 +107,26 @@ class Api {
     }
   }
 
+  async updateMedication(medicationId, options) {
+    if (!this.isLoggedIn()) throw new Error("not logged in");
+
+    let response = await fetch(`/api/medication/${medicationId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(options),
+    });
+
+    let json = await response.json();
+    if (response.ok) {
+      return json.data;
+    } else {
+      throw new Error(json.data.message);
+    }
+  }
+
   async deleteMedication(id) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
 
@@ -173,6 +193,28 @@ class Api {
           Authorization: `Bearer ${this.token}`,
           "Content-Type": "application/json",
         },
+      }
+    );
+
+    let json = await response.json();
+    if (response.ok) {
+      return json.data;
+    } else {
+      throw new Error(json.data.message);
+    }
+  }
+
+  async updateMedicationSchedule(medicationId, scheduleId, options) {
+    if (!this.isLoggedIn()) throw new Error("not logged in");
+    let response = await fetch(
+      `/api/medication/${medicationId}/schedule/${scheduleId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(options),
       }
     );
 
