@@ -535,91 +535,94 @@ router.get("/medication/:medicationId/schedule", async (req, res) => {
   }
 });
 
-router.delete("/medication/:medicationId/schedule/:scheduleId", async (req, res) => {
+router.delete(
+  "/medication/:medicationId/schedule/:scheduleId",
+  async (req, res) => {
     const pool = req.app.locals.pool;
-  const token = res.locals.token;
+    const token = res.locals.token;
 
-  let medicationId = req.params["medicationId"];
-  let scheduleId = req.params["scheduleId"];
+    let medicationId = req.params["medicationId"];
+    let scheduleId = req.params["scheduleId"];
 
-  if (typeof medicationId !== "string") {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid medication id",
-      },
-    });
-    return;
+    if (typeof medicationId !== "string") {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: "invalid medication id",
+        },
+      });
+      return;
+    }
+    medicationId = parseInt(medicationId);
+
+    if (Number.isNaN(medicationId)) {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: "invalid medication id",
+        },
+      });
+      return;
+    }
+
+    if (typeof scheduleId !== "string") {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: "invalid schedule id",
+        },
+      });
+      return;
+    }
+    scheduleId = parseInt(scheduleId);
+
+    if (Number.isNaN(scheduleId)) {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: "invalid schedule id",
+        },
+      });
+      return;
+    }
+
+    let connection = null;
+    try {
+      connection = await pool.getConnection();
+      await Medication.getByUserIdAndId(connection, token.id, medicationId);
+    } catch (e) {
+      console.error(e);
+      res.status(404).json({
+        type: "error",
+        data: {
+          message: "invalid medication",
+        },
+      });
+      return;
+    } finally {
+      if (connection) await connection.release();
+    }
+
+    try {
+      await pool.query(
+        "DELETE FROM medication_schedules WHERE medication_id = ? AND id = ?;",
+        [medicationId, scheduleId]
+      );
+
+      res.status(200).json({
+        type: "ok",
+        data: "deleted schedule",
+      });
+    } catch (err) {
+      // console.error(err);
+      res.status(500).json({
+        type: "error",
+        data: {
+          message: "internal server error",
+        },
+      });
+    }
   }
-  medicationId = parseInt(medicationId);
-
-  if (Number.isNaN(medicationId)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid medication id",
-      },
-    });
-    return;
-  }
-  
-  if (typeof scheduleId !== "string") {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid schedule id",
-      },
-    });
-    return;
-  }
-  scheduleId = parseInt(scheduleId);
-
-  if (Number.isNaN(scheduleId)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid schedule id",
-      },
-    });
-    return;
-  }
-
-  let connection = null;
-  try {
-    connection = await pool.getConnection();
-    await Medication.getByUserIdAndId(connection, token.id, medicationId);
-  } catch (e) {
-    console.error(e);
-    res.status(404).json({
-      type: "error",
-      data: {
-        message: "invalid medication",
-      },
-    });
-    return;
-  } finally {
-    if (connection) await connection.release();
-  }
-
-  try {
-    await pool.query(
-      "DELETE FROM medication_schedules WHERE medication_id = ? AND id = ?;",
-      [medicationId, scheduleId],
-    );
-
-    res.status(200).json({
-      type: "ok",
-      data: "deleted schedule",
-    });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({
-      type: "error",
-      data: {
-        message: "internal server error",
-      },
-    });
-  }
-});
+);
 
 export default router;
