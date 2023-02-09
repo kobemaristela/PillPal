@@ -37,6 +37,32 @@ function validateCredentials(username, password) {
     throw new Error("Password must contain at least one special character");
 }
 
+function stripPrefix(string, prefix) {
+  if (!string.startsWith(prefix)) return null;
+  return string.substr(prefix.length);
+}
+
+function jwtVerify(token, secretOrPublicKey, options) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, secretOrPublicKey, options, (err, decoded) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(decoded);
+      }
+    });
+  });
+}
+
+function readIntReqParam(req, key) {
+  let value = req.params[key];
+  if (typeof value !== "string")
+    throw new Error(`raw "${key}" value is not a string`);
+  value = parseInt(value);
+  if (Number.isNaN(value)) throw new Error(`"${key}" value is not a string`);
+  return value;
+}
+
 router.post("/login", async (req, res) => {
   const pool = req.app.locals.pool;
   const JWT_SECRET = req.app.locals.JWT_SECRET;
@@ -162,23 +188,6 @@ router.post("/login/register", async (req, res) => {
   }
 });
 
-function stripPrefix(string, prefix) {
-  if (!string.startsWith(prefix)) return null;
-  return string.substr(prefix.length);
-}
-
-function jwtVerify(token, secretOrPublicKey, options) {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, secretOrPublicKey, options, (err, decoded) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(decoded);
-      }
-    });
-  });
-}
-
 router.use(async (req, res, next) => {
   const JWT_SECRET = req.app.locals.JWT_SECRET;
   let authorization = req.get("Authorization");
@@ -284,6 +293,92 @@ router.post("/medication", async (req, res) => {
   }
 });
 
+router.put("/medication/:medicationId", async (req, res) => {
+  const pool = req.app.locals.pool;
+  const token = res.locals.token;
+
+  let medicationId = null;
+  try {
+    medicationId = readIntReqParam(req, "medicationId");
+  } catch (e) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: e.message,
+      },
+    });
+    return;
+  }
+
+  let name = req.body["name"];
+  let description = req.body["description"];
+
+  if (
+    typeof name !== "string" &&
+    typeof name !== "undefined" &&
+    name !== null
+  ) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "`name` field is invalid",
+      },
+    });
+    return;
+  }
+
+  if (
+    typeof description !== "string" &&
+    typeof description !== "undefined" &&
+    description !== null
+  ) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "`description` field is invalid",
+      },
+    });
+    return;
+  }
+
+  let connection = null;
+  try {
+    connection = await pool.getConnection();
+
+    await connection.beginTransaction();
+
+    name = name || null;
+    description = description || null;
+    await connection.query(
+      "UPDATE medication SET name = COALESCE(?, name), description = COALESCE(?, description) WHERE user_id = ? and id = ?;",
+      [name, description, token.id, medicationId]
+    );
+
+    await connection.commit();
+
+    res.status(200).json({
+      type: "ok",
+      data: {
+        message: "medication updated",
+      },
+    });
+  } catch (err) {
+    console.log(err);
+
+    if (connection) await connection.rollback();
+
+    res.status(500).json({
+      type: "error",
+      data: {
+        message: "internal server error",
+      },
+    });
+    return;
+  } finally {
+    if (connection) await connection.release();
+  }
+});
+
 router.get("/medication", async (req, res) => {
   const pool = req.app.locals.pool;
   const token = res.locals.token;
@@ -314,24 +409,14 @@ router.delete("/medication/:medicationId", async (req, res) => {
   const pool = req.app.locals.pool;
   const token = res.locals.token;
 
-  let medicationId = req.params["medicationId"];
-
-  if (typeof medicationId !== "string") {
+  let medicationId = null;
+  try {
+    medicationId = readIntReqParam(req, "medicationId");
+  } catch (e) {
     res.status(400).json({
       type: "error",
       data: {
-        message: "invalid medication id",
-      },
-    });
-    return;
-  }
-  medicationId = parseInt(medicationId);
-
-  if (Number.isNaN(medicationId)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid medication id",
+        message: e.message,
       },
     });
     return;
@@ -465,24 +550,14 @@ router.get("/medication/:medicationId/schedule", async (req, res) => {
   const pool = req.app.locals.pool;
   const token = res.locals.token;
 
-  let medicationId = req.params["medicationId"];
-
-  if (typeof medicationId !== "string") {
+  let medicationId = null;
+  try {
+    medicationId = readIntReqParam(req, "medicationId");
+  } catch (e) {
     res.status(400).json({
       type: "error",
       data: {
-        message: "invalid medication id",
-      },
-    });
-    return;
-  }
-  medicationId = parseInt(medicationId);
-
-  if (Number.isNaN(medicationId)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid medication id",
+        message: e.message,
       },
     });
     return;
@@ -535,91 +610,170 @@ router.get("/medication/:medicationId/schedule", async (req, res) => {
   }
 });
 
-router.delete("/medication/:medicationId/schedule/:scheduleId", async (req, res) => {
+router.put(
+  "/medication/:medicationId/schedule/:scheduleId",
+  async (req, res) => {
     const pool = req.app.locals.pool;
-  const token = res.locals.token;
+    const token = res.locals.token;
 
-  let medicationId = req.params["medicationId"];
-  let scheduleId = req.params["scheduleId"];
+    let medicationId = null;
+    let scheduleId = null;
+    try {
+      medicationId = readIntReqParam(req, "medicationId");
+      scheduleId = readIntReqParam(req, "scheduleId");
+    } catch (e) {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: e.message,
+        },
+      });
+      return;
+    }
 
-  if (typeof medicationId !== "string") {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid medication id",
-      },
-    });
-    return;
+    let hourOfDay = req.body["hourOfDay"];
+    let dayOfWeek = req.body["dayOfWeek"];
+
+    if (
+      typeof hourOfDay !== "number" &&
+      typeof hourOfDay !== "undefined" &&
+      hourOfDay !== null
+    ) {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: "`hourOfDay` field is invalid",
+        },
+      });
+      return;
+    }
+
+    if (
+      typeof dayOfWeek !== "number" &&
+      dayOfWeek !== null &&
+      dayOfWeek !== undefined
+    ) {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: "`dayOfWeek` field is invalid",
+        },
+      });
+      return;
+    }
+
+    let connection = null;
+    try {
+      connection = await pool.getConnection();
+
+      await connection.beginTransaction();
+      let [rows] = await connection.query(
+        "SELECT id, name, description FROM medication WHERE user_id = ? AND id = ?;",
+        [token.id, medicationId]
+      );
+      if (rows.length === 0) {
+        await connection.rollback();
+        res.status(404).json({
+          type: "error",
+          data: {
+            message: "invalid medication",
+          },
+        });
+
+        return;
+      }
+
+      if (hourOfDay === undefined) hourOfDay = null;
+      await connection.query(
+        "UPDATE medication_schedules SET hour_of_day = COALESCE(?, hour_of_day), day_of_week = COALESCE(CASE WHEN ? = 1 THEN ? ELSE NULL END, day_of_week) WHERE medication_id = ? AND id = ?;",
+        [
+          hourOfDay,
+          dayOfWeek !== undefined,
+          dayOfWeek || null,
+          medicationId,
+          scheduleId,
+        ]
+      );
+      await connection.commit();
+
+      res.status(200).json({
+        type: "ok",
+        data: "updated medication schedule",
+      });
+    } catch (err) {
+      console.log(err);
+      if (connection) await connection.rollback();
+
+      res.status(500).json({
+        type: "error",
+        data: {
+          message: "internal server error",
+        },
+      });
+    } finally {
+      if (connection) await connection.release();
+    }
   }
-  medicationId = parseInt(medicationId);
+);
 
-  if (Number.isNaN(medicationId)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid medication id",
-      },
-    });
-    return;
-  }
-  
-  if (typeof scheduleId !== "string") {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid schedule id",
-      },
-    });
-    return;
-  }
-  scheduleId = parseInt(scheduleId);
+router.delete(
+  "/medication/:medicationId/schedule/:scheduleId",
+  async (req, res) => {
+    const pool = req.app.locals.pool;
+    const token = res.locals.token;
 
-  if (Number.isNaN(scheduleId)) {
-    res.status(400).json({
-      type: "error",
-      data: {
-        message: "invalid schedule id",
-      },
-    });
-    return;
-  }
+    let medicationId = null;
+    let scheduleId = null;
+    try {
+      medicationId = readIntReqParam(req, "medicationId");
+      scheduleId = readIntReqParam(req, "scheduleId");
+    } catch (e) {
+      res.status(400).json({
+        type: "error",
+        data: {
+          message: e.message,
+        },
+      });
+      return;
+    }
 
-  let connection = null;
-  try {
-    connection = await pool.getConnection();
-    await Medication.getByUserIdAndId(connection, token.id, medicationId);
-  } catch (e) {
-    console.error(e);
-    res.status(404).json({
-      type: "error",
-      data: {
-        message: "invalid medication",
-      },
-    });
-    return;
-  } finally {
-    if (connection) await connection.release();
-  }
+    let connection = null;
+    try {
+      connection = await pool.getConnection();
+      await Medication.getByUserIdAndId(connection, token.id, medicationId);
+    } catch (e) {
+      console.error(e);
+      res.status(404).json({
+        type: "error",
+        data: {
+          message: "invalid medication",
+        },
+      });
+      return;
+    } finally {
+      if (connection) await connection.release();
+    }
 
-  try {
-    await pool.query(
-      "DELETE FROM medication_schedules WHERE medication_id = ? AND id = ?;",
-      [medicationId, scheduleId],
-    );
+    try {
+      await pool.query(
+        "DELETE FROM medication_schedules WHERE medication_id = ? AND id = ?;",
+        [medicationId, scheduleId]
+      );
 
-    res.status(200).json({
-      type: "ok",
-      data: "deleted schedule",
-    });
-  } catch (err) {
-    // console.error(err);
-    res.status(500).json({
-      type: "error",
-      data: {
-        message: "internal server error",
-      },
-    });
+      res.status(200).json({
+        type: "ok",
+        data: "deleted schedule",
+      });
+    } catch (err) {
+      // console.error(err);
+      res.status(500).json({
+        type: "error",
+        data: {
+          message: "internal server error",
+        },
+      });
+    }
   }
-});
+);
 
 export default router;

@@ -45,6 +45,18 @@ GET /api/medication
 An `ApiResponse` is retuned.
 If it is successful, the payload is an array of `Medication`.
 
+## Update Medication
+PUT /api/medication/:medicationId
+```json
+{
+    "name": "new medication name, optional string",
+    "description": "new medication description, optional string"
+}
+```
+
+An `ApiResponse` is retuned.
+If it is successful, the payload is currently unspecified.
+
 ## Delete Medication
 DELETE /api/medication/:medicationId
 
@@ -67,6 +79,24 @@ If it is successful, the payload is currently unspecified.
 GET /api/medication/:medicationId/schedule
 An `ApiResponse` is returned. 
 If it is successful, the payload is currently an array of unspecified data.
+
+## Update Medication
+PUT /api/medication/:medicationId/schedule/:scheduleId
+```json
+{
+    "hourOfDay": <hour of day of repeat, as optional int>
+    "dayOfWeek": <day of week, as int. May be null to signify all. Optional. Note that field absence and the field being null have 2 different meanings.>
+}
+```
+
+An `ApiResponse` is retuned.
+If it is successful, the payload is currently unspecified.
+
+## Delete Medication Schedule
+DELETE /api/medication/:medicationId/schedule/:scheduleId
+
+An `ApiResponse` is retuned.
+If it is successful, the payload is currently unspecified.
 
 # Types
 
