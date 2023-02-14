@@ -1,23 +1,14 @@
 <template>
-      <router-link class="button" to="/dashboard" @click="show = !show">
-        <span class="material-icons-outlined">person</span>
-        <span class="text">Profile</span>
-      </router-link>
-      <router-link class="button" to="/" v-if="show">
-        <span class="material-icons-outlined">logout</span>
-        <span class="text" @click="logout">Logout</span>
-      </router-link>
-  </template>
+  <router-link class="button" to="/">
+    <span class="material-icons-outlined">logout</span>
+    <span class="text" @click="logout">Logout</span>
+  </router-link>
+</template>
   
   <script>
   import Api from "../Api";
 
   export default {
-    data() {
-      return {
-        show: false,
-      };
-    },
     methods: {
       logout() {
         Api.logout();
