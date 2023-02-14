@@ -9,10 +9,6 @@
   import Api from "../Api";
 
   export default {
-    data() {
-      return {
-      };
-    },
     methods: {
       logout() {
         Api.logout();
