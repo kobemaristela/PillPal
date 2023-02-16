@@ -29,7 +29,7 @@ class Api {
   }
 
   async login(username, password) {
-    let response = await fetch(`/api/login`, {
+    let response = await fetch(`api/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ class Api {
   }
 
   async register(username, password) {
-    let response = await fetch(`/api/login/register`, {
+    let response = await fetch(`api/login/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ class Api {
   async createMedication(name, description) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
 
-    let response = await fetch(`/api/medication`, {
+    let response = await fetch(`api/medication`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -91,7 +91,7 @@ class Api {
   async getMedication() {
     if (!this.isLoggedIn()) throw new Error("not logged in");
 
-    let response = await fetch(`/api/medication`, {
+    let response = await fetch(`api/medication`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -110,7 +110,7 @@ class Api {
   async updateMedication(medicationId, options) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
 
-    let response = await fetch(`/api/medication/${medicationId}`, {
+    let response = await fetch(`api/medication/${medicationId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -130,7 +130,7 @@ class Api {
   async deleteMedication(id) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
 
-    let response = await fetch(`/api/medication/${id}`, {
+    let response = await fetch(`api/medication/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -148,7 +148,7 @@ class Api {
 
   async createMedicationSchedule(medicationId, hourOfDay, dayOfWeek) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
-    let response = await fetch(`/api/medication/schedule`, {
+    let response = await fetch(`api/medication/schedule`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -167,7 +167,7 @@ class Api {
 
   async getMedicationSchedules(medicationId) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
-    let response = await fetch(`/api/medication/${medicationId}/schedule`, {
+    let response = await fetch(`api/medication/${medicationId}/schedule`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${this.token}`,
@@ -186,7 +186,7 @@ class Api {
   async deleteMedicationSchedule(medicationId, scheduleId) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
     let response = await fetch(
-      `/api/medication/${medicationId}/schedule/${scheduleId}`,
+      `api/medication/${medicationId}/schedule/${scheduleId}`,
       {
         method: "DELETE",
         headers: {
@@ -207,7 +207,7 @@ class Api {
   async updateMedicationSchedule(medicationId, scheduleId, options) {
     if (!this.isLoggedIn()) throw new Error("not logged in");
     let response = await fetch(
-      `/api/medication/${medicationId}/schedule/${scheduleId}`,
+      `api/medication/${medicationId}/schedule/${scheduleId}`,
       {
         method: "PUT",
         headers: {
