@@ -33,7 +33,6 @@
         },
         logout() {
             Api.logout()
-            console.log('User is logged out');
             this.$router.push("/");
         }
     },
