@@ -79,4 +79,36 @@ class User {
   }
 }
 
-export { User };
+class Medication {
+  constructor(id, name, description) {
+    this.id = id;
+    this.name = name;
+    this.description = description;
+  }
+
+  static async getByUserIdAndId(connection, userId, id) {
+    let [rows] = await connection.query(
+      "SELECT id, name, description FROM medication WHERE user_id = ? AND id = ?;",
+      [userId, id]
+    );
+    if (rows.length === 0) throw new Error("medication not found");
+    if (rows.length !== 1) throw new Error("duplicate medications found");
+
+    return new Medication(rows.id, rows.name, rows.description);
+  }
+
+  static async getAllByUserId(connection, userId) {
+    let [rows] = await connection.query(
+      "SELECT id, name, description FROM medication WHERE user_id = ?;",
+      [userId]
+    );
+
+    return rows.map((row) => {
+      return new Medication(row.id, row.name, row.description);
+    });
+  }
+
+  // TODO: deleteByUserIdAndId
+}
+
+export { User, Medication };

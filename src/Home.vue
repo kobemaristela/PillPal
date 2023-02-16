@@ -32,9 +32,9 @@
 }
 
 label {
-    font-size: 2em;
-  }
-  
+  font-size: 2em;
+}
+
 h2 {
   font-size: 1.5em;
   margin-top: -2em;
@@ -88,153 +88,144 @@ a {
 /* Oval 157 */
 .oval1 {
   position: absolute;
-  border-radius: 50%; 
-  width: 40em; 
-  height: 40em; 
-  background: #8353E24D; /* secondary-500 */
+  border-radius: 50%;
+  width: 40em;
+  height: 40em;
+  background: #8353e24d; /* secondary-500 */
   z-index: -1;
-  top: 13em; 
-  left: -10em; 
+  top: 13em;
+  left: -10em;
 }
 
 .oval2 {
   position: absolute;
-  border-radius: 50%; 
-  width: 40em; 
-  height: 40em; 
-  background: #8353E24D; /* secondary-500 */
+  border-radius: 50%;
+  width: 40em;
+  height: 40em;
+  background: #8353e24d; /* secondary-500 */
   z-index: -1;
   top: -10em; /* top: -118px;*/
-  right: -8em; 
-
+  right: -8em;
 }
 .rectangly {
   position: absolute;
-  top: 45em; 
-  left: 60em; 
-  width: 100em; 
-  height: 13.5em; 
-  background: #8353E24D; 
-  border-radius: .5em;
+  top: 45em;
+  left: 60em;
+  width: 100em;
+  height: 13.5em;
+  background: #8353e24d;
+  border-radius: 0.5em;
   z-index: -1;
 }
 .rectangly_2 {
   position: absolute;
-  bottom: 12em; 
-  right: 60em; 
-  width: 100em; 
-  height: 10.5em; 
-  background: #8353E24D; 
-  border-radius: .5em;
+  bottom: 12em;
+  right: 60em;
+  width: 100em;
+  height: 10.5em;
+  background: #8353e24d;
+  border-radius: 0.5em;
   z-index: -1;
 }
 .headline {
-  position: absolute; 
-  margin-top: 13em; 
+  position: absolute;
+  margin-top: 13em;
   margin-left: 4em;
-  font-size: 2em; 
+  font-size: 2em;
 }
-  .logo {
-      position: absolute; 
-      padding: 4em;
-      transform: scale(4);
-      widows: 2em;
-      background-color:transparent;
-  }
-  .product-container {
-    position: absolute;
-    margin-top: 2em;
-    width: 100%;
-    background-color: var(--active-color);
-    z-index: -10;
-  }
-  .footer {
-    margin-top: 2em;
-    width: 100%;
-    background-color: var(--background-color);
-  }
-  .footer-content {
-    display: flex;
-    justify-content: space-between;
-    width: 75%;
-    padding-top: 5em;
-    margin-left: auto;
-    margin-right:auto;
-    text-align: center;
+.logo {
+  position: absolute;
+  padding: 4em;
+  transform: scale(4);
+  widows: 2em;
+  background-color: transparent;
+}
+.product-container {
+  position: absolute;
+  margin-top: 2em;
+  width: 100%;
+  background-color: var(--active-color);
+  z-index: -10;
+}
+.footer {
+  margin-top: 2em;
+  width: 100%;
+  background-color: var(--background-color);
+}
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  width: 75%;
+  padding-top: 5em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.product-features {
+  width: 75%;
+  padding-top: 8em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  padding-bottom: 3em;
+}
+h3 {
+  font-size: 4em;
+  text-decoration: bold;
+  font-family: "Epilogue";
+  color: white;
+}
+h6 {
+  font-size: 1.2em;
+  text-decoration: bold;
+  color: black;
+}
 
-  }
-  .product-features {
-    width: 75%;
-    padding-top: 8em;
-    margin-left: auto;
-    margin-right:auto;
-    text-align: center;
-    padding-bottom: 3em;
-  }
-  h3 {
-    font-size: 4em;
-    text-decoration: bold;
-    font-family: "Epilogue";
-    color: white;
-  }
-  h6 {
-    font-size: 1.2em;
-    text-decoration: bold;
-    color: black;
-  }
+h4 {
+  width: 30%;
+  padding-top: 1em;
+  color: white;
+  text-decoration: none;
+}
+.centered {
+  font-size: 1em;
+  width: 50%;
+  padding-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+}
 
-  h4 {
-    width: 30%;
-    padding-top: 1.0em;
-    color: white;
-    text-decoration: none;
-  }
-  .centered {
-    font-size: 1em;
-    width: 50%;
-    padding-top: 1.0em;
-    margin-left: auto;
-    margin-right:auto;
-    color: white;
-  }
+.par {
+  width: auto;
+}
 
-  .par {
-    width: auto;
-  }
+h5 {
+  font-size: 2.5em;
+  width: 50%;
+  padding-top: 1em;
+  color: white;
+}
+.right-text {
+  width: auto;
+}
 
-  h5 {
-    font-size: 2.5em;
-    width: 50%;
-    padding-top: 1.0em;
-    color: white;
-  }
-  .right-text {
-    width:auto;
-  }
-
-
-
-  .row {
-    margin-top: 8em;
-    display: flex;
-    justify-content: space-between;
-    text-align: left;
-  }
-  .middle-row {
-    margin-top: 8em;
-    display: flex;
-    justify-content: space-between;
-    text-align: right;
-  }
-
-
-
+.row {
+  margin-top: 8em;
+  display: flex;
+  justify-content: space-between;
+  text-align: left;
+}
+.middle-row {
+  margin-top: 8em;
+  display: flex;
+  justify-content: space-between;
+  text-align: right;
+}
 </style>
 
 <template>
-
   <div class="container">
-
     <div class="logo">
       <img src="./assets/logo_small.svg" alt="PillPal" />
     </div>
@@ -251,7 +242,7 @@ a {
       <div class="rectangly"></div>
       <div class="rectangly_2"></div>
     </div>
-    
+
     <div class="register-container">
       <div class="register-padding"></div>
       <div class="register-form-container">
@@ -288,22 +279,28 @@ a {
     <div class="product-container">
       <div class="product-features">
         <h3>Product Features</h3>
-        <h4 class="centered">Nisi irure nisi mollit exercitation cupidatat excepteur.
-          Lorem in ullamco reprehenderit exercitation sunt non tempor exercitation exercitation
+        <h4 class="centered">
+          Nisi irure nisi mollit exercitation cupidatat excepteur. Lorem in
+          ullamco reprehenderit exercitation sunt non tempor exercitation
+          exercitation
         </h4>
 
         <div class="row">
           <div class="text">
             <h5>Take control of your medication</h5>
-            <h4>Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex vel
-              it do Lorem reprehenderit. id eiusmod deserunt consequat 
-              pariatur ad ex velit do Lorem reprehenderit.</h4>
+            <h4>
+              Do consectetur proident proident id eiusmod deserunt consequat
+              pariatur ad ex vel it do Lorem reprehenderit. id eiusmod deserunt
+              consequat pariatur ad ex velit do Lorem reprehenderit.
+            </h4>
           </div>
-          <img src="./assets/images/stock_image_1.png" alt="sitting">
+          <img src="./assets/images/stock_image_1.png" alt="sitting" />
         </div>
 
         <div class="middle-row">
-          <div class="left_image"><img src="./assets/images/stock_image_2.png" alt="sitting2"/></div>
+          <div class="left_image">
+            <img src="./assets/images/stock_image_2.png" alt="sitting2" />
+          </div>
           <div class>
             <h5 class="right-text">Receive Notifications</h5>
             <h4 class="par">Do consectetur proident proident id eiusmod de</h4>
@@ -313,41 +310,38 @@ a {
         <div class="row">
           <div class="text">
             <h5>Create Profiles</h5>
-            <h4>Do consectetur proident proident id eiusmod deserunt consequat pariatur ad ex vel
-              it do Lorem reprehenderit. id eiusmod deserunt consequat 
-              pariatur ad ex velit do Lorem reprehenderit.</h4>
+            <h4>
+              Do consectetur proident proident id eiusmod deserunt consequat
+              pariatur ad ex vel it do Lorem reprehenderit. id eiusmod deserunt
+              consequat pariatur ad ex velit do Lorem reprehenderit.
+            </h4>
           </div>
-          <img src="./assets/images/stock_image_1.png" alt="sitting">
+          <img src="./assets/images/stock_image_1.png" alt="sitting" />
         </div>
-
       </div>
 
       <div class="footer">
-      <div class="footer-content">
-        <div>
-          <h6>Product</h6>
-          <!-- <p1>Features</p1> -->
+        <div class="footer-content">
+          <div>
+            <h6>Product</h6>
+            <!-- <p1>Features</p1> -->
+          </div>
+          <div>
+            <h6>Resources</h6>
+            <!-- <p1>Blog</p1> -->
+          </div>
+          <div>
+            <h6>Company</h6>
+            <!-- <p1>Developers</p1> -->
+          </div>
+          <div>
+            <h6>Support</h6>
+            <!-- <p1>Help Center</p1> -->
+          </div>
         </div>
-        <div>
-          <h6>Resources</h6>
-          <!-- <p1>Blog</p1> -->
-        </div>
-        <div>
-          <h6>Company</h6>
-          <!-- <p1>Developers</p1> -->
-        </div>
-        <div>
-          <h6>Support</h6>
-          <!-- <p1>Help Center</p1> -->
-        </div>
-
       </div>
     </div>
-    </div>
-
-
   </div>
-
 </template>
 <script>
 import Api from "./Api.js";
