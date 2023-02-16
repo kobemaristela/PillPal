@@ -1,9 +1,3 @@
-<template>
-    <div>
-      <router-view />
-    </div>
-</template>
-  
 <script>
     import Api from '../Api.js';
 
