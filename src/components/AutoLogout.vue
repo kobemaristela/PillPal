@@ -15,6 +15,11 @@
     },
     mounted() {
         this.startTimer();
+        window.addEventListener('mousemove',this.resetTimer);
+    },
+    unmounted() {
+        window.removeEventListener('mousemove',this.resetTimer);
+        clearTimeout(this.timer);
     },
     methods: {
         startTimer() {
