@@ -294,12 +294,12 @@ h5 {
               consequat pariatur ad ex velit do Lorem reprehenderit.
             </h4>
           </div>
-          <img src="./assets/images/stock_image_1.png" alt="sitting" />
+          <img src="./assets/images/Dashboard.png" alt="sitting" width="auto" height="400"/>
         </div>
 
         <div class="middle-row">
           <div class="left_image">
-            <img src="./assets/images/stock_image_2.png" alt="sitting2" />
+            <img src="./assets/images/Medications.png" alt="sitting2" width="auto" height="400"/>
           </div>
           <div class>
             <h5 class="right-text">Receive Notifications</h5>
@@ -316,7 +316,7 @@ h5 {
               consequat pariatur ad ex velit do Lorem reprehenderit.
             </h4>
           </div>
-          <img src="./assets/images/stock_image_1.png" alt="sitting" />
+          <img src="./assets/images/Calendar.png" alt="sitting" width="auto" height="400"/>
         </div>
       </div>
 
