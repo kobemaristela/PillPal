@@ -153,10 +153,9 @@ a {
   background-color: var(--background-color);
 }
 .footer-content {
-  display: flex;
   justify-content: space-between;
   width: 75%;
-  padding-top: 5em;
+  padding-top: 2em;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -231,9 +230,9 @@ h5 {
     </div>
 
     <div class="headline">
-      <h1>Headline 1.</h1>
-      <h1>Headline 2.</h1>
-      <h1>Headline 3.</h1>
+      <h1>Ultimate</h1>
+      <h1>Medication</h1>
+      <h1>Management</h1>
     </div>
 
     <div class="shapes">
@@ -280,64 +279,78 @@ h5 {
       <div class="product-features">
         <h3>Product Features</h3>
         <h4 class="centered">
-          Nisi irure nisi mollit exercitation cupidatat excepteur. Lorem in
-          ullamco reprehenderit exercitation sunt non tempor exercitation
-          exercitation
+          PillPal is an innovative medication tracking application that allows
+          users to effortlessly monitor their medications, ensuring compliance
+          and leading to better health outcomes. Its features include an
+          intuitive calendar for tracking medication, a comprehensive dashboard
+          for a clear overview of medication-related information, and a
+          convenient medication scheduler for easy addition of new medications.
         </h4>
 
         <div class="row">
           <div class="text">
             <h5>Take control of your medication</h5>
             <h4>
-              Do consectetur proident proident id eiusmod deserunt consequat
-              pariatur ad ex vel it do Lorem reprehenderit. id eiusmod deserunt
-              consequat pariatur ad ex velit do Lorem reprehenderit.
+              PillPal's dashboard provides a comprehensive overview of all
+              medication-related information, including dosage schedules,
+              medication names, and refill dates, allowing users to easily track
+              and manage their medications. Its user-friendly interface provides
+              a holistic view of their medication regimen, ensuring compliance
+              and optimal health outcomes.
             </h4>
           </div>
-          <img src="./assets/images/stock_image_1.png" alt="sitting" />
+          <img
+            src="./assets/images/Dashboard.png"
+            alt="sitting"
+            width="auto"
+            height="400"
+          />
         </div>
 
         <div class="middle-row">
           <div class="left_image">
-            <img src="./assets/images/stock_image_2.png" alt="sitting2" />
+            <img
+              src="./assets/images/Medications.png"
+              alt="sitting2"
+              width="auto"
+              height="400"
+            />
           </div>
           <div class>
-            <h5 class="right-text">Receive Notifications</h5>
-            <h4 class="par">Do consectetur proident proident id eiusmod de</h4>
+            <h5 class="right-text">Medication Scheduler</h5>
+            <h4 class="par">
+              PillPal's medication scheduler feature simplifies the process of
+              adding new medications to one's regimen, reducing the likelihood
+              of errors or omissions. Users can easily add medication
+              information such as name, dosage, and refill date, ensuring
+              accuracy and compliance with their medication regimen.
+            </h4>
           </div>
         </div>
 
         <div class="row">
           <div class="text">
-            <h5>Create Profiles</h5>
+            <h5>Calendar Tracker</h5>
             <h4>
-              Do consectetur proident proident id eiusmod deserunt consequat
-              pariatur ad ex vel it do Lorem reprehenderit. id eiusmod deserunt
-              consequat pariatur ad ex velit do Lorem reprehenderit.
+              PillPal's intuitive calendar feature enables users to easily track
+              their medication dosage schedules, eliminating the burden of
+              manually keeping tabs on their medication routine. With its
+              user-friendly interface and clear display of medication schedules,
+              users can stay compliant and ensure optimal health outcomes.
             </h4>
           </div>
-          <img src="./assets/images/stock_image_1.png" alt="sitting" />
+          <img
+            src="./assets/images/Calendar.png"
+            alt="sitting"
+            width="auto"
+            height="400"
+          />
         </div>
       </div>
 
       <div class="footer">
         <div class="footer-content">
-          <div>
-            <h6>Product</h6>
-            <!-- <p1>Features</p1> -->
-          </div>
-          <div>
-            <h6>Resources</h6>
-            <!-- <p1>Blog</p1> -->
-          </div>
-          <div>
-            <h6>Company</h6>
-            <!-- <p1>Developers</p1> -->
-          </div>
-          <div>
-            <h6>Support</h6>
-            <!-- <p1>Help Center</p1> -->
-          </div>
+          <router-link to="/about">About Us</router-link>
         </div>
       </div>
     </div>

@@ -1,12 +1,11 @@
 <script>
-    import Api from '../Api.js';
+import Api from "../Api.js";
 
-    export default {
-        mounted() {
-            if (!Api.isLoggedIn()) {
-                this.$router.push('/');
-            }
-        }
-    };
+export default {
+  mounted() {
+    if (!Api.isLoggedIn()) {
+      this.$router.push("/");
+    }
+  },
+};
 </script>
-  
