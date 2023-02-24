@@ -145,7 +145,6 @@ a {
   margin-top: 2em;
   width: 100%;
   background-color: var(--active-color);
-  z-index: -10;
 }
 .footer {
   margin-top: 2em;

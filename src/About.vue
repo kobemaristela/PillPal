@@ -58,6 +58,11 @@
 </template>
 
 <script>
+import profileKobe from "./assets/images/profile/Kobe.jpg";
+import profileKen from "./assets/images/profile/Ken.jpg";
+import profileNathaniel from "./assets/images/profile/Nathaniel.jpg";
+import profileZak from "./assets/images/profile/Zak.jpg";
+
 export default {
   data() {
     return {
@@ -66,8 +71,7 @@ export default {
           name: "Kobe Maristela",
           role: "Developer",
           bio: "I am a passionate tech enthusiast with a strong interest in computer science, coding, and cybersecurity. My drive to stay up-to-date on emerging trends and continuously improve my skills in these fields motivates me to seek out challenging projects and collaborate with like-minded professionals. I am committed to using technology to make a positive impact and excited to contribute my knowledge and expertise to innovative solutions.",
-          image:
-            "https://media.licdn.com/dms/image/C5603AQGKQ10RNOMdDw/profile-displayphoto-shrink_800_800/0/1656700526492?e=1682553600&v=beta&t=n3xM8t1x-t1VnZv4l-BwbgKZWEYgrj8JJNAru3dZVgg",
+          image: profileKobe,
           linkedin: "https://www.linkedin.com/in/kobe-maristela/",
           github: "https://github.com/kobemaristela",
         },
@@ -75,8 +79,7 @@ export default {
           name: "Nathaniel Daniel",
           role: "Developer",
           bio: "I am a computer science and engineering student with a passion for exploring new technologies and a solid background in mathematics and programming. I am currently seeking an internship to further develop my skills and gain real-world experience in software development. I thrive both in team environments and as an independent contributor, and am eager to contribute to innovative projects.",
-          image:
-            "https://media.licdn.com/dms/image/C5603AQEc9IiOw1Fw0Q/profile-displayphoto-shrink_800_800/0/1533411482435?e=1682553600&v=beta&t=PNWXVKYqMpYBpfLranEglamgpWnEUpUmkZJ6J1GP_zs",
+          image: profileNathaniel,
           linkedin: "https://www.linkedin.com/in/nathaniel-daniel/",
           github: "https://github.com/nathaniel-daniel",
         },
@@ -84,8 +87,7 @@ export default {
           name: "Ken Escovilla",
           role: "Developer",
           bio: "I am a computer science student with a passion for robotics and automation. I am driven to explore the latest advancements in this field, and am excited about the potential for robotics to revolutionize industries and enhance our daily lives. I am eager to collaborate with others and apply my skills in software development and hardware design to create innovative solutions in robotics.",
-          image:
-            "https://media.licdn.com/dms/image/C5603AQGOBfXsKX8U5Q/profile-displayphoto-shrink_800_800/0/1636498354908?e=1682553600&v=beta&t=Uk42_jXTsHeMVGiEoKVAd6mmIxrgHAwKQoaKWU25KlM",
+          image: profileKen,
           linkedin: "https://www.linkedin.com/in/ken-escovilla/",
           github: "https://github.com/Kescovilla",
         },
@@ -93,8 +95,7 @@ export default {
           name: "Zak Buffington",
           role: "Developer",
           bio: "I am a student at DMACC enrolled in the Techwise Program supported by Google, where I am studying Computer Information Systems. I am particularly interested in the fields of Data Science and Machine Learning, and am excited about the opportunities these technologies offer to solve complex problems and drive innovation.",
-          image:
-            "https://media.licdn.com/dms/image/C5603AQHymJYBgGqLnA/profile-displayphoto-shrink_800_800/0/1663037176558?e=1682553600&v=beta&t=uOzpO32-ZmHSG04K8KjUbXgShqfDumGYuH-Ca37Lgs8",
+          image: profileZak,
           linkedin: "https://www.linkedin.com/in/zak-buffington/",
           github: "https://github.com/ZakBuffington",
         },
