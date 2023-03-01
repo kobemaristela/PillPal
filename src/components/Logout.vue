@@ -1,8 +1,8 @@
 <template>
-  <router-link class="button" to="/">
+  <button class="button" @click="logout">
     <span class="material-icons-outlined">logout</span>
-    <span class="text" @click="logout">Logout</span>
-  </router-link>
+    <span class="text">Logout</span>
+  </button>
 </template>
 
 <script>

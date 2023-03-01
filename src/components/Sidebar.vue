@@ -22,6 +22,8 @@
         <span class="material-icons-outlined">calendar_today</span>
         <span class="text">Schedule</span>
       </router-link>
+
+      <!--
       <router-link class="button" to="/dashboard/drug-info">
         <span class="material-icons-outlined">info</span>
         <span class="text">Drug Information</span>
@@ -30,6 +32,7 @@
         <span class="material-icons-outlined">price_change</span>
         <span class="text">Medication Price</span>
       </router-link>
+       -->
     </div>
 
     <div class="flex"></div>
