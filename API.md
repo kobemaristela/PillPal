@@ -46,7 +46,7 @@ POST /api/medication
 ```
 
 An `ApiResponse` is returned.
-If it is successful, the payload is currently unspecified.
+If it is successful, the payload is the id of the newly created medication.
 
 ## Get All Medication
 

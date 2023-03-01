@@ -263,7 +263,7 @@ router.post("/medication", async (req, res) => {
     connection = await pool.getConnection();
 
     await connection.beginTransaction();
-    await connection.query(
+    const [rows] = await connection.execute(
       "INSERT INTO medication (user_id, name, description) VALUES (?, ?, ?);",
       [token.id, name, description]
     );
@@ -273,7 +273,7 @@ router.post("/medication", async (req, res) => {
     res.status(200).json({
       type: "ok",
       data: {
-        message: "medication created",
+        id: rows.insertId,
       },
     });
   } catch (err) {
@@ -428,6 +428,10 @@ router.delete("/medication/:medicationId", async (req, res) => {
 
     await Medication.getByUserIdAndId(connection, token.id, medicationId);
 
+    await connection.query(
+      "DELETE FROM medication_administrations WHERE medication_id = ?;",
+      [medicationId]
+    );
     await connection.query(
       "DELETE FROM medication_schedules WHERE medication_id = ?;",
       [medicationId]
