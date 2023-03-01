@@ -776,4 +776,128 @@ router.delete(
   }
 );
 
+router.post("/medication/:medicationId/administration", async (req, res) => {
+  const pool = req.app.locals.pool;
+  const token = res.locals.token;
+
+  let medicationId = null;
+  try {
+    medicationId = readIntReqParam(req, "medicationId");
+  } catch (e) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: e.message,
+      },
+    });
+    return;
+  }
+
+  let timestamp = req.body["timestamp"];
+  let status = req.body["status"];
+
+  if (typeof timestamp !== "number" || !Number.isInteger(timestamp)) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "`timestamp` field is invalid",
+      },
+    });
+    return;
+  }
+
+  if (
+    typeof status !== "number" ||
+    !Number.isInteger(status) ||
+    (status !== 0 && status !== 1 && status !== 2)
+  ) {
+    res.status(400).json({
+      type: "error",
+      data: {
+        message: "`status` field is invalid",
+      },
+    });
+    return;
+  }
+
+  let connection = null;
+  try {
+    connection = await pool.getConnection();
+
+    await connection.beginTransaction();
+    let [rows] = await connection.query(
+      "SELECT id, name, description FROM medication WHERE user_id = ? AND id = ?;",
+      [token.id, medicationId]
+    );
+    if (rows.length === 0) {
+      await connection.rollback();
+      res.status(404).json({
+        type: "error",
+        data: {
+          message: "invalid medication",
+        },
+      });
+
+      return;
+    }
+
+    await connection.query(
+      "INSERT INTO medication_administrations (medication_id, timestamp, status) VALUES (?, ?, ?);",
+      [medicationId, timestamp, status]
+    );
+    await connection.commit();
+
+    res.status(200).json({
+      type: "ok",
+      data: "created medication administration",
+    });
+  } catch (err) {
+    // console.log(err);
+    if (connection) await connection.rollback();
+
+    res.status(500).json({
+      type: "error",
+      data: {
+        message: "internal server error",
+      },
+    });
+  } finally {
+    if (connection) await connection.release();
+  }
+});
+
+router.get("/medication/administration", async (req, res) => {
+  const pool = req.app.locals.pool;
+  const token = res.locals.token;
+
+  try {
+    let [rows] = await pool.query(
+      "SELECT medication_administrations.id as id, medication_id, timestamp, status FROM medication_administrations JOIN medication ON medication.id = medication_id WHERE user_id = ?;",
+      [token.id]
+    );
+
+    let payload = rows.map((row) => {
+      return {
+        id: row.id,
+        medicationId: row.medication_id,
+        timestamp: row.timestamp,
+        status: row.status,
+      };
+    });
+
+    res.status(200).json({
+      type: "ok",
+      data: payload,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      type: "error",
+      data: {
+        message: "internal server error",
+      },
+    });
+  }
+});
+
 export default router;

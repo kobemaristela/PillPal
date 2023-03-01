@@ -25,6 +25,21 @@ CREATE TABLE medication_schedules (
     FOREIGN KEY (medication_id) REFERENCES medication (id)
 );
 
+CREATE TABLE medication_administrations (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    medication_id BIGINT NOT NULL,
+    
+    timestamp BIGINT NOT NULL,
+    
+    -- Status Enumerations
+    -- 0: On-Time
+    -- 1: Early
+    -- 2: Late
+    status INT NOT NULL,
+
+    FOREIGN KEY (medication_id) REFERENCES medication (id)
+);
+
 /*
 Currently VERY up in the air:
 
