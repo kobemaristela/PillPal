@@ -26,6 +26,8 @@ class Api {
   logout() {
     localStorage.removeItem("TOKEN");
     this.token = null;
+
+    console.log("[API] Logged Out");
   }
 
   async login(username, password) {

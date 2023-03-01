@@ -105,7 +105,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .about {
   max-width: 800px;
   margin: auto;
