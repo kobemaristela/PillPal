@@ -225,6 +225,46 @@ class Api {
       throw new Error(json.data.message);
     }
   }
+
+  async createMedicationAdministration(medicationId, timestamp, status) {
+    if (!this.isLoggedIn()) throw new Error("not logged in");
+    let response = await fetch(
+      `api/medication/${medicationId}/administration`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${this.token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ timestamp, status }),
+      }
+    );
+
+    let json = await response.json();
+    if (response.ok) {
+      return json.data;
+    } else {
+      throw new Error(json.data.message);
+    }
+  }
+
+  async getMedicationAdministrations() {
+    if (!this.isLoggedIn()) throw new Error("not logged in");
+    let response = await fetch(`api/medication/administration`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${this.token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    let json = await response.json();
+    if (response.ok) {
+      return json.data;
+    } else {
+      throw new Error(json.data.message);
+    }
+  }
 }
 
 const api = new Api();

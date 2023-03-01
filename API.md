@@ -95,7 +95,7 @@ If it is successful, the payload is currently unspecified.
 
 GET /api/medication/:medicationId/schedule
 An `ApiResponse` is returned.
-If it is successful, the payload is currently an array of unspecified data.
+If it is successful, the payload is currently an array of MedicationSchedules.
 
 ## Update Medication
 
@@ -117,6 +117,26 @@ DELETE /api/medication/:medicationId/schedule/:scheduleId
 
 An `ApiResponse` is retuned.
 If it is successful, the payload is currently unspecified.
+
+## Create Medication Administration
+
+POST /api/medication/:medicationId/administration
+
+```json
+{
+    "timestamp": <unix epoch in seconds, integer>,
+    "status": <0 for ok; 1 for early; 2 for late, integer>
+}
+```
+
+An `ApiResponse` is retuned.
+If it is successful, the payload is currently unspecified.
+
+## List Medication Administrations
+GET /api/medication/administration
+
+An `ApiResponse` is retuned.
+If it is successful, the payload is currently a list of MedicationAdministrations.
 
 # Types
 
@@ -168,6 +188,17 @@ MedicationSchedule {
     "medicationId": <id of the medication this schedule belongs to, as an int>,
     "hourOfDay": <the hour of day to take the medication, as an int>,
     "dayOfWeek": <the day of the week to take a medication, as an int>,
+}
+```
+
+## MedicationAdministration
+
+```
+MedicationAdministration {
+    "id": <id of the medication administration, as an int>,
+    "medicationId": <id of the medication this administration belongs to, as an int>,
+    "timestamp": <the unix timestamp of the administration, as an int>,
+    "status": <the status of the administration (0 = ok, 1 = early, 2 = late), as an int>,
 }
 ```
 
