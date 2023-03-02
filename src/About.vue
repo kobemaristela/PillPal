@@ -29,6 +29,7 @@
         interface and advanced features to ensure accuracy and compliance.
       </p>
     </div>
+    <a :href="gitlab" target="_blank"><img src="./assets/images/gitlab.svg" style="width: 50%; height: auto;"/></a>
 
     <div class="team-profiles">
       <div
@@ -59,7 +60,7 @@
 
 <script>
 import profileKobe from "./assets/images/profile/Kobe.jpg";
-import profileKen from "./assets/images/profile/Ken.jpg";
+import profileKen from "./assets/images/profile/Ken.png";
 import profileNathaniel from "./assets/images/profile/Nathaniel.jpg";
 import profileZak from "./assets/images/profile/Zak.jpg";
 
@@ -100,6 +101,7 @@ export default {
           github: "https://github.com/ZakBuffington",
         },
       ],
+      gitlab: "https://gitlab.com/team-2110/team-21-medication-tracker",
     };
   },
 };
