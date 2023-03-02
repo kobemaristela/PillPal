@@ -9,7 +9,7 @@ CREATE TABLE medication (
     id BIGINT AUTO_INCREMENT PRIMARY KEY, 
     user_id BIGINT NOT NULL,
     
-    name varchar(255) UNIQUE NOT NULL, 
+    name varchar(255) NOT NULL, 
     description varchar(255) NOT NULL,
     
     FOREIGN KEY (user_id) REFERENCES users (id)
